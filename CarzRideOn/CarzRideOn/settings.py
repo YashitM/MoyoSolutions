@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qg2(s7s7+t7340(r-&8#q-4=pwi9^3ku@n&)oso7q1+q+tfz5w'
+SECRET_KEY = 'vf0+vyoepezq#87)4u!$cvbar^)5bujht-0z2#wvex@f=l%rxw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'website.apps.WebsiteConfig',
+    'website',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,32 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'places',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
+
 ]
-
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
-            'id',
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
-        }
-    }
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,7 +89,7 @@ WSGI_APPLICATION = 'CarzRideOn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rideon',
+        'NAME': 'moyo_custom',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root',
@@ -154,4 +138,12 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 SITE_ID = 1
+
+AUTH_USER_MODEL = 'website.CustomUser'
+
+# GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDV_0oYU6bmeilWmG6jnzf27WGlEtn-S64'
+PLACES_MAPS_API_KEY='AIzaSyCTYjDhEfBVeuW7C_zZd5ZzAv86d3ry1CI'
+
+
