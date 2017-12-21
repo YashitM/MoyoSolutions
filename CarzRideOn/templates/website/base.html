@@ -30,12 +30,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'index_page'%}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'offer_ride'%}">Offer Rides</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login_page' %}">Login / SignUp</a>
-                </li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'offer_ride'%}">Offer Rides</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" id="logout_form" action="{% url 'account_logout' %}">
+                            {% csrf_token %}
+                            <a class="nav-link" id="logout_submit_link" href="#">Logout</a>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accounts/signup">SignUp</a>
+                    </li>
+                {% endif %}
+
+
+
             </ul>
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -51,5 +67,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/js/mdb.min.js"></script>
+    <script src="{% static 'website/js/index.js' %}"></script>
 </body>
 </html>

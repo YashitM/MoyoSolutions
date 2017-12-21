@@ -1,9 +1,7 @@
 from django.contrib.auth.base_user import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, User
 from django.db import models
 from places.fields import PlacesField
-
-from .managers import UserManager
 
 
 class Contactus(models.Model):
@@ -43,9 +41,9 @@ class Rides(models.Model):
     message = models.TextField(blank=True, null=True, db_column='message')
     ridecancelstatus = models.IntegerField(db_column='rideCancelStatus')  # Field name made lowercase.
 
-
     class Meta:
         db_table = 'rides'
+
 
 class SourceLocation(models.Model):
     ride = models.ForeignKey(Rides, on_delete=models.CASCADE)
@@ -69,7 +67,8 @@ class UserRides(models.Model):
 
 
 # Create your models here.
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class CustomUser(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     sno = models.AutoField(primary_key=True)
     fb_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
@@ -86,14 +85,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     aadhar = models.CharField(max_length=100, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-
-    objects = UserManager()
-    #
-    # REQUIRED_FIELDS = ['name', 'email']
-
     class Meta:
         db_table = 'users'
-
-    def get_name(self):
-        return self.name
