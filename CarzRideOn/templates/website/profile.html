@@ -1,0 +1,22 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="heading-text">
+                Profile
+            </div>
+            <div class="">
+                {{ user.username }}<br>
+                {{ user.email }}<br>
+                {{ user.first_name }} {{ user.last_name }}
+                {{ user.socialaccount_set.all.0.uid }}
+                {{ user.socialaccount_set.all.0.extra_data.id }}
+            </div>
+            <div class="redirect-button">
+                <a href="{% url 'update_profile' %}">Update Profile</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

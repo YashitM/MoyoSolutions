@@ -3,7 +3,7 @@ from django import forms
 from places import Places
 from places.widgets import PlacesWidget
 
-from .models import Rides, DestinationLocation
+from .models import Rides, DestinationLocation, CustomUser
 
 
 class RidesForm(forms.ModelForm):
@@ -45,3 +45,18 @@ class PlacesField(forms.MultiValueField):
         if value_list:
             return value_list
         return ""
+
+
+class UpdateProfileForm(forms.ModelForm):
+    gender = forms.CharField(max_length=100)
+    dob = forms.CharField(max_length=100)
+    mobile = forms.CharField(max_length=100)
+    company = forms.CharField(max_length=100)
+    ref_number = forms.CharField(max_length=100)
+    aadhar = forms.CharField(max_length=100)
+
+    class Meta:
+        model = CustomUser
+        fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar',]
+
+

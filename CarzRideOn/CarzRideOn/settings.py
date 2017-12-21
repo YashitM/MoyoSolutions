@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'vf0+vyoepezq#87)4u!$cvbar^)5bujht-0z2#wvex@f=l%rxw'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -82,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'CarzRideOn.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
@@ -115,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -129,6 +125,30 @@ USE_L10N = True
 
 USE_TZ = True
 
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'link',
+            'gender',
+        ],
+    },
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -144,6 +164,4 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 
 # GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDV_0oYU6bmeilWmG6jnzf27WGlEtn-S64'
-PLACES_MAPS_API_KEY='AIzaSyCTYjDhEfBVeuW7C_zZd5ZzAv86d3ry1CI'
-
-
+PLACES_MAPS_API_KEY = 'AIzaSyCTYjDhEfBVeuW7C_zZd5ZzAv86d3ry1CI'

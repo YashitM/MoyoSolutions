@@ -83,7 +83,6 @@ class CustomUser(models.Model):
     fcm_id = models.CharField(max_length=1000, blank=True, null=True)
     company = models.CharField(max_length=100)
     aadhar = models.CharField(max_length=100, blank=True, null=True)
-    is_staff = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'users'
