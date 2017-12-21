@@ -1,10 +1,14 @@
 {% extends 'website/base.html' %}
-
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        {{ form_ride.as_p }}
-        <input type="submit" value="Submit">
+        {% for field in form %}
+        <div>
+            <label>{{field.label_tag}}</label>
+            <div> {{field}} </div>
+        </div>
+        {% endfor %}
+        <button type="submit" value="Submit">Submit</button>
     </form>
 
 {% endblock %}

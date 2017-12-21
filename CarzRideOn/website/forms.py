@@ -1,23 +1,25 @@
 import datetime
 from django import forms
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms import SelectDateWidget
 from places import Places
 from places.widgets import PlacesWidget
-
+from django.forms.fields import DateField
 from .models import Rides, DestinationLocation, CustomUser
 
 
 class RidesForm(forms.ModelForm):
-    car_model = forms.CharField()
-    seats = forms.CharField()
+    car_model = forms.CharField(max_length=100)
+    seats = forms.CharField(max_length=10)
     seats_available = forms.IntegerField()
     cost = forms.CharField(max_length=10)
-    dateofride = forms.CharField(max_length=20)
     start_time = forms.CharField(max_length=100)
+    dateofride = DateField(widget=SelectDateWidget)
     message = forms.TextInput()
 
     class Meta:
         model = Rides
-        fields = ['car_model', 'seats', 'seats_available', 'cost', 'dateofride', 'start_time', 'message', ]
+        fields = ['car_model', 'seats', 'seats_available', 'cost', 'start_time', 'dateofride', 'message', ]
 
 
 class PlacesField(forms.MultiValueField):
@@ -57,6 +59,4 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar',]
-
-
+        fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar', ]
