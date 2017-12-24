@@ -29,12 +29,12 @@ class Rides(models.Model):
     seats = models.CharField(max_length=100, blank=True, null=True, db_column='seats')
     seats_available = models.IntegerField(db_column='seats_available')
     cost = models.CharField(max_length=10, blank=True, null=True, db_column='cost')
-    # source = models.CharField(max_length=100, blank=True, null=True, db_column='source')
-    # source_latitude = models.CharField(max_length=100, blank=True, null=True, db_column='source_latitude')
-    # source_longitude = models.CharField(max_length=100, blank=True, null=True, db_column='source_longitude')
-    # destination = models.CharField(max_length=100, blank=True, null=True, db_column='destination')
-    # destination_latitude = models.CharField(max_length=100, blank=True, null=True, db_column='destination_latitude')
-    # destination_longitude = models.CharField(max_length=100, blank=True, null=True, db_column='destination_longitude')
+    source = models.CharField(max_length=100, blank=True, null=True, db_column='source')
+    source_latitude = models.CharField(max_length=100, blank=True, null=True, db_column='source_latitude')
+    source_longitude = models.CharField(max_length=100, blank=True, null=True, db_column='source_longitude')
+    destination = models.CharField(max_length=100, blank=True, null=True, db_column='destination')
+    destination_latitude = models.CharField(max_length=100, blank=True, null=True, db_column='destination_latitude')
+    destination_longitude = models.CharField(max_length=100, blank=True, null=True, db_column='destination_longitude')
     dateofride = models.CharField(max_length=20, blank=True, null=True, db_column='dateofride')
     start_time = models.CharField(max_length=100, blank=True, null=True, db_column='start_time')
     created_at = models.DateTimeField(db_column='created_at')
@@ -43,17 +43,6 @@ class Rides(models.Model):
 
     class Meta:
         db_table = 'rides'
-
-
-class SourceLocation(models.Model):
-    ride = models.ForeignKey(Rides, on_delete=models.CASCADE)
-    location = PlacesField()
-
-
-class DestinationLocation(models.Model):
-    ride = models.ForeignKey(Rides, on_delete=models.CASCADE)
-    location = PlacesField()
-
 
 class UserRides(models.Model):
     fb_id = models.CharField(max_length=100, blank=True, null=True)

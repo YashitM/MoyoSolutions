@@ -1,14 +1,52 @@
 {% extends 'website/base.html' %}
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" id="offerrideform">
         {% csrf_token %}
         {% for field in form %}
         <div>
-            <label>{{field.label_tag}}</label>
-            <div> {{field}} </div>
+            {% if "Source" in field.label_tag %}
+                <div class="input-group">
+                    {{ field }}
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Source Location</button>
+                    </span>
+                </div>
+            {% else %}
+                <label>{{field.label_tag}}</label>
+                <div> {{field}} </div>
+            {% endif %}
+
         </div>
         {% endfor %}
-        <button type="submit" value="Submit">Submit</button>
+        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
     </form>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Source Location</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="pac-card" id="pac-card">
+                        <div id="pac-container">
+                            <input id="location_input" type="text" placeholder="Enter a location">
+                        </div>
+                    </div>
+                    <div id="map"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

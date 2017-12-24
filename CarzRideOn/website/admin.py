@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ratings, Rides, Contactus, UserRides, CustomUser, SourceLocation, DestinationLocation
+from .models import Ratings, Rides, Contactus, UserRides, CustomUser
 
 # class PointOfInterestAdmin(admin.ModelAdmin):
 #     list_display = ('source', 'position', 'position_map',)
@@ -19,8 +19,6 @@ from .models import Ratings, Rides, Contactus, UserRides, CustomUser, SourceLoca
 
 admin.site.register(Ratings)
 admin.site.register(Rides)
-admin.site.register(SourceLocation)
-admin.site.register(DestinationLocation)
 admin.site.register(Contactus)
 admin.site.register(UserRides)
 admin.site.register(CustomUser)

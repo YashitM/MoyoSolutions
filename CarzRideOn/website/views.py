@@ -1,6 +1,9 @@
 import datetime
 
 from django.shortcuts import render
+from places.forms import PlacesField
+
+from website.models import Rides
 from .forms import RidesForm, UpdateProfileForm
 
 
@@ -12,6 +15,7 @@ def offer_ride(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = RidesForm(request.POST)
+            form_source = PlacesField(request.POST)
             if form.is_valid():
                 print("Form Validated")
                 ride = form.save(commit=False)
@@ -38,23 +42,24 @@ def offer_ride(request):
                 return render(request, 'website/index.html', {'temp': 'temp'})
 
         form = RidesForm()
-        return render(request, 'website/offerride.html', {"form": form})
+        form_source = PlacesField()
+        return render(request, 'website/offerride.html', {"form": form, "form_source": form_source})
     else:
         return render(request, 'website/index.html', {"temp": "temp"})
 
 
-
 def view_profile(request):
     if request.user.is_authenticated():
-        extra_json = request.user.socialaccount_set.all()
-        print(extra_json[0].uid)
-    return render(request, 'website/profile.html', {"temp": "temp"})
-
+        if request.user.customuser_set.all().exists():
+            return render(request, 'website/profile.html', {"update_profile": "True"})
+        return render(request, 'website/profile.html', {"update_profile": "False"})
+    return render(request, 'website/index.html', {"temp": "temp"})
 
 def update_profile(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = UpdateProfileForm(request.POST)
+            form_source = PlacesField(request.POST)
             if form.is_valid():
                 custom_user = form.save(commit=False)
                 gender = form.cleaned_data['gender']
@@ -77,10 +82,25 @@ def update_profile(request):
                 custom_user.user_id = request.user.id
                 custom_user.ref_status = "0"
                 form.save()
-
                 return render(request, 'website/index.html', {'temp': 'temp'})
 
         form = UpdateProfileForm()
         return render(request, 'website/update_profile.html', {"form": form})
+    else:
+        return render(request, 'website/index.html', {"temp": "temp"})
+
+
+def take_ride(request):
+    if request.user.is_authenticated:
+        if request.user.customuser_set.all().exists():
+            user_id = request.user.customuser_set.all()[0].fb_id
+            all_rides = Rides.objects.exclude(
+                fb_id=user_id
+            )
+            print(len(all_rides))
+            return render(request, 'website/takeride.html', {"rides": all_rides})
+        else:
+            return update_profile(request)
+
     else:
         return render(request, 'website/index.html', {"temp": "temp"})
