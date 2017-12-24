@@ -8,7 +8,14 @@
                 <div class="input-group">
                     {{ field }}
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Source Location</button>
+                        <button type="button" id="source_location_button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Source Location</button>
+                    </span>
+                </div>
+            {% elif "Destination" in field.label_tag %}
+                <div class="input-group">
+                    {{ field }}
+                    <span class="input-group-btn">
+                        <button type="button" id="destination_location_button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Destination Location</button>
                     </span>
                 </div>
             {% else %}
@@ -25,7 +32,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Source Location</h4>
+                    <h4 class="modal-title">Select Location</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
