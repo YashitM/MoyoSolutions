@@ -17,6 +17,10 @@ class RidesForm(forms.ModelForm):
     dateofride = DateField(widget=SelectDateWidget)
     message = forms.TextInput()
     source_location = forms.CharField(max_length=1000)
+    sou_lati = forms.CharField(max_length=1000)
+    sou_long = forms.CharField(max_length=1000)
+    des_lati = forms.CharField(max_length=1000)
+    des_long = forms.CharField(max_length=1000)
     destination_location = forms.CharField(max_length=1000)
 
     class Meta:

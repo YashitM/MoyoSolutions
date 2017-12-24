@@ -13,33 +13,48 @@ def index(request):
 
 def offer_ride(request):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = RidesForm(request.POST)
-            form_source = PlacesField(request.POST)
-            if form.is_valid():
-                print("Form Validated")
-                ride = form.save(commit=False)
-                car_model = form.cleaned_data['car_model']
-                seats = form.cleaned_data['seats']
-                seats_available = form.cleaned_data['seats_available']
-                cost = form.cleaned_data['cost']
-                start_time = form.cleaned_data['start_time']
-                message = form.cleaned_data['message']
-                dateofride = form.cleaned_data['dateofride']
+        if request.user.customuser_set.all().exists():
+            if request.method == 'POST':
+                form = RidesForm(request.POST)
+                form_source = PlacesField(request.POST)
+                if form.is_valid():
+                    print("Form Validated")
+                    ride = form.save(commit=False)
+                    car_model = form.cleaned_data['car_model']
+                    seats = form.cleaned_data['seats']
+                    seats_available = form.cleaned_data['seats_available']
+                    cost = form.cleaned_data['cost']
+                    start_time = form.cleaned_data['start_time']
+                    message = form.cleaned_data['message']
+                    dateofride = form.cleaned_data['dateofride']
+                    source_location = form.cleaned_data['source_location']
+                    destination_location = form.cleaned_data['destination_location']
+                    lat_sou = form.cleaned_data['sou_lati']
+                    lat_des = form.cleaned_data['des_lati']
+                    lon_sou = form.cleaned_data['sou_long']
+                    lon_des = form.cleaned_data['des_long']
 
-                ride.car_model = car_model
-                ride.fb_id = request.user.customuser_set.all()[0].fb_id
-                ride.seats = seats
-                ride.seats_available = seats_available
-                ride.cost = cost
-                ride.start_time = start_time
-                ride.message = message
-                ride.ridecancelstatus = 0
-                ride.created_at = datetime.datetime.now()
-                ride.dateofride = dateofride
-                form.save()
+                    ride.car_model = car_model
+                    ride.fb_id = request.user.customuser_set.all()[0].fb_id
+                    ride.seats = seats
+                    ride.seats_available = seats_available
+                    ride.cost = cost
+                    ride.start_time = start_time
+                    ride.message = message
+                    ride.ridecancelstatus = 0
+                    ride.created_at = datetime.datetime.now()
+                    ride.dateofride = dateofride
+                    ride.source = source_location
+                    ride.destination = destination_location
+                    ride.destination_latitude = lat_des
+                    ride.destination_longitude = lon_des
+                    ride.source_latitude = lat_sou
+                    ride.source_longitude = lon_sou
+                    form.save()
 
-                return render(request, 'website/index.html', {'temp': 'temp'})
+                    return render(request, 'website/index.html', {'temp': 'temp'})
+        else:
+            return update_profile(request)
 
         form = RidesForm()
         form_source = PlacesField()

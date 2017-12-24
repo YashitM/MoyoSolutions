@@ -1,5 +1,6 @@
 //Google Maps
 
+
 defaultLatLong = {lat: 12.978718, lng: 77.589731};
 
 var map = new google.maps.Map(document.getElementById('map'), {
@@ -22,6 +23,9 @@ var marker = new google.maps.Marker({
     draggable: true,
     clickable: true
 });
+
+var currentLongitude = 0.0;
+var currentLatitude = 0.0;
 
 google.maps.event.addListener(marker, 'dragend', function(marker){
     var latLng = marker.latLng;
@@ -55,6 +59,8 @@ google.maps.event.addListener(autocomplete, "place_changed", function()
     }
 
     marker.setPosition(place.geometry.location);
+    currentLatitude = marker.getPosition().lat();
+    currentLongitude = marker.getPosition().lng();
 });
 
 var clicked_by = "";
@@ -63,31 +69,23 @@ $("#myModal").on("shown.bs.modal", function (e) {
     google.maps.event.trigger(map, "resize");
     map.setCenter(defaultLatLong);
     clicked_by = e.relatedTarget.id;
-
 });
 
 $('#myModal').on('hidden.bs.modal', function (e) {
     var text = document.getElementById("location_input").value;
     if (clicked_by === "source_location_button") {
         document.getElementById('id_source_location').value = text;
+        console.log(currentLongitude)
+        console.log(currentLatitude)
+        document.getElementById('id_sou_lati').value = currentLatitude;
+        document.getElementById('id_sou_long').value = currentLongitude;
     }
     else if(clicked_by === "destination_location_button") {
         document.getElementById('id_destination_location').value = text;
+        console.log(currentLongitude)
+        console.log(currentLatitude)
+        document.getElementById('id_des_lati').value = currentLatitude;
+        document.getElementById('id_des_long').value = currentLongitude;
     }
 });
 
-//Logout Redirection
-
-$("#logout_form").submit(function(){ //Handle the sumbit here.
-            var url = $("#logout_form").attr("action");
-            var formData = $("#logout_submit_link").serialize();
-            console.log(url);
-            $.post(url, formData, function(response){
-                console.log(response);
-            });//end post
-  });//end submit
-
-  $(document).on("click","#logout_submit_link",function(evt){
-    evt.preventDefault();
-    $("#logout_form").submit();
-});
