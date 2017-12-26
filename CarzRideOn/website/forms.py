@@ -56,3 +56,17 @@ class RequestRideForm(forms.ModelForm):
     class Meta:
         model = UserRides
         fields = ['message', ]
+
+
+VALIDATE_REQUEST_CHOICES = (
+    ('2', 'Accept'),
+    ('3', 'Reject'),
+)
+
+
+class ValidateRequestForm(forms.Form):
+    validation = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=VALIDATE_REQUEST_CHOICES,
+    )

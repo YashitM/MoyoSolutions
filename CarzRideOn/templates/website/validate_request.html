@@ -1,0 +1,17 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="heading-text">
+            Validate Request from {{ request_owner }}
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+{% endblock %}

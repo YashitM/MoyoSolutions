@@ -5,7 +5,7 @@ from django.shortcuts import render
 from places.forms import PlacesField
 
 from website.models import Rides, UserRides
-from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm
+from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm
 
 
 def index(request):
@@ -169,8 +169,9 @@ def request_ride(request, ride_id):
                 if user.socialaccount_set.all().exists():
                     if user.socialaccount_set.all()[0].uid == selected_ride.fb_id:
                         selected_ride_owner = user.socialaccount_set.all()[0].extra_data['name']
-            form = RequestRideForm({'ride_id': str(ride_id)})
-            return render(request, 'website/request_ride.html', {"form": form, 'selected_ride': selected_ride, 'selected_ride_owner': selected_ride_owner})
+            form = RequestRideForm()
+            return render(request, 'website/request_ride.html',
+                          {"form": form, 'selected_ride': selected_ride, 'selected_ride_owner': selected_ride_owner})
         else:
             return update_profile(request)
 
@@ -178,3 +179,47 @@ def request_ride(request, ride_id):
         return render(request, 'website/index.html', {"temp": "temp"})
 
 
+def view_requests(request):
+    if request.user.is_authenticated:
+        if request.user.customuser_set.all().exists():
+            all_rides = Rides.objects.filter(fb_id=request.user.socialaccount_set.all()[0].uid)
+            all_rides_id = []
+            for ride in all_rides:
+                all_rides_id.append(ride.id)
+            all_ride_requests = UserRides.objects.all()
+            filtered_ride_requests = []
+            for ride_request in all_ride_requests:
+                if ride_request.id in all_rides_id and ride_request.status == "1":
+                    filtered_ride_requests.append(ride_request)
+            return render(request, 'website/view_request.html', {'requests': filtered_ride_requests})
+        else:
+            return update_profile(request)
+    else:
+        return render(request, 'website/index.html', {"temp": "temp"})
+
+
+def validate_ride_request(request, request_id):
+    if request.user.is_authenticated:
+        if request.user.customuser_set.all().exists():
+            if request.method == 'POST':
+                form = ValidateRequestForm(request.POST)
+                if form.is_valid():
+                    ride_request = UserRides.objects.get(pk=request_id)
+                    ride_request.status = form.cleaned_data['validation'][0]
+                    ride_request.save()
+                    return view_requests(request)
+
+            form = ValidateRequestForm()
+            selected_request = UserRides.objects.get(pk=request_id)
+            users = User.objects.all()
+            request_owner = ""
+            for user in users:
+                if user.socialaccount_set.all().exists():
+                    if user.socialaccount_set.all()[0].uid == selected_request.fb_id:
+                        request_owner = user.socialaccount_set.all()[0].extra_data['name']
+            return render(request, 'website/validate_request.html',
+                          {'request': selected_request, 'request_owner': request_owner, 'form': form})
+        else:
+            return update_profile(request)
+    else:
+        return render(request, 'website/index.html', {"temp": "temp"})

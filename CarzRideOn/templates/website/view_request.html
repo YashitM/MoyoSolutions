@@ -1,0 +1,20 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="heading-text">
+            Pending Ride Requests
+        </div>
+        {% if requests %}
+            {% for ride_request in requests %}
+                {{ ride_request.fb_id }}
+                <a href="{% url 'validate_ride_request' ride_request.id%}" class="btn btn-primary">Validate Request</a>
+            {% endfor %}
+        {% else %}
+            <h2>You have no pending requests.</h2>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
