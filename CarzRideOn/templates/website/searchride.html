@@ -1,0 +1,31 @@
+{% extends 'website/base.html' %}
+
+
+{% block content %}
+    {% load extra_commands %}
+    <div class="container">
+        Source: {{ s_location }}<br>
+        Destination: {{ d_location }}<br>
+        <br>
+        {% if available_rides %}
+            <h2>Available Rides</h2>
+            {% for ride in available_rides %}
+                <div class="card">
+                    <div class="card-header">Ride By <b>{% get_at_index owners forloop.counter0 %}</b></div>
+                    <div class="card-block">
+                        <h4 class="card-title"><span class="search-location-text">{{ ride.source }}</span> to <span class="search-location-text">{{ ride.destination }}</span></h4>
+                        <p class="card-text">
+                            Date: {{ ride.dateofride }}<br>
+                            Time: {{ ride.start_time }}<br>
+                            Seats Available: {{ ride.seats_available }}
+                        </p>
+                        <a href="{% url 'request_ride' ride.id %}" class="btn btn-primary">Request Ride</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h2>Sorry, No rides could be found</h2>
+        {% endif %}
+    </div>
+
+{% endblock %}

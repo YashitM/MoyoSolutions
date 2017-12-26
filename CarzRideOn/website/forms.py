@@ -5,7 +5,7 @@ from django.forms import SelectDateWidget
 from places import Places
 from places.widgets import PlacesWidget
 from django.forms.fields import DateField
-from .models import Rides, CustomUser
+from .models import Rides, CustomUser, UserRides
 
 
 class RidesForm(forms.ModelForm):
@@ -39,3 +39,20 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar', ]
+
+
+class SearchRideForm(forms.Form):
+    source_location = forms.CharField(max_length=1000)
+    sou_lati = forms.CharField(max_length=1000)
+    sou_long = forms.CharField(max_length=1000)
+    des_lati = forms.CharField(max_length=1000)
+    des_long = forms.CharField(max_length=1000)
+    destination_location = forms.CharField(max_length=1000)
+
+
+class RequestRideForm(forms.ModelForm):
+    message = forms.TextInput()
+
+    class Meta:
+        model = UserRides
+        fields = ['message', ]

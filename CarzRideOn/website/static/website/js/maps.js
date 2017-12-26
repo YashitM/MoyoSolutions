@@ -1,6 +1,5 @@
 //Google Maps
 
-
 defaultLatLong = {lat: 12.978718, lng: 77.589731};
 
 var map = new google.maps.Map(document.getElementById('map'), {
@@ -10,7 +9,6 @@ var map = new google.maps.Map(document.getElementById('map'), {
 });
 
 var input = document.getElementById('location_input');
-var card = document.getElementById('pac-card');
 
 var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -75,15 +73,40 @@ $('#myModal').on('hidden.bs.modal', function (e) {
     var text = document.getElementById("location_input").value;
     if (clicked_by === "source_location_button") {
         document.getElementById('id_source_location').value = text;
-        console.log(currentLongitude)
-        console.log(currentLatitude)
+        // console.log(currentLongitude)
+        // console.log(currentLatitude)
         document.getElementById('id_sou_lati').value = currentLatitude;
         document.getElementById('id_sou_long').value = currentLongitude;
     }
     else if(clicked_by === "destination_location_button") {
         document.getElementById('id_destination_location').value = text;
-        console.log(currentLongitude)
-        console.log(currentLatitude)
+        // console.log(currentLongitude)
+        // console.log(currentLatitude)
+        document.getElementById('id_des_lati').value = currentLatitude;
+        document.getElementById('id_des_long').value = currentLongitude;
+    }
+});
+
+$("#myModal2").on("shown.bs.modal", function (e) {
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(defaultLatLong);
+    clicked_by = e.relatedTarget.id;
+    console.log(clicked_by)
+});
+
+$('#myModal2').on('hidden.bs.modal', function (e) {
+    var text = document.getElementById("location_input").value;
+    if (clicked_by === "source_location_button_take_ride") {
+        document.getElementById('id_source_location').value = text;
+        // console.log(currentLongitude)
+        // console.log(currentLatitude)
+        document.getElementById('id_sou_lati').value = currentLatitude;
+        document.getElementById('id_sou_long').value = currentLongitude;
+    }
+    else if(clicked_by === "destination_location_button_take_ride") {
+        document.getElementById('id_destination_location').value = text;
+        // console.log(currentLongitude)
+        // console.log(currentLatitude)
         document.getElementById('id_des_lati').value = currentLatitude;
         document.getElementById('id_des_long').value = currentLongitude;
     }

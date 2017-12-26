@@ -48,7 +48,7 @@ class UserRides(models.Model):
     fb_id = models.CharField(max_length=100, blank=True, null=True)
     task_id = models.CharField(max_length=100, blank=True, null=True)
     status = models.CharField(max_length=1, blank=True, null=True)
-    created_at = models.DateTimeField()
+    created_at = models.CharField(max_length=1000)
     message = models.CharField(max_length=1000, blank=True, null=True)
 
     class Meta:
