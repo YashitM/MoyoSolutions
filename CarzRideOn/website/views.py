@@ -64,7 +64,8 @@ def offer_ride(request):
 def view_profile(request):
     if request.user.is_authenticated():
         if request.user.customuser_set.all().exists():
-            return render(request, 'website/profile.html', {"update_profile": "True"})
+            time = datetime.datetime.now().time()
+            return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
         return render(request, 'website/profile.html', {"update_profile": "False"})
     return render(request, 'website/index.html', {"temp": "temp"})
 

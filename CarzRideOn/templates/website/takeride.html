@@ -1,36 +1,41 @@
 {% extends 'website/base.html' %}
 {% block content %}
-    <form action="" method="post" id="offerrideform">
-        {% csrf_token %}
-        {% for field in form %}
-        <div>
-            {% if "lati" in field.label_tag or "long" in field.label_tag %}
-                <div class="input-group">
-                    {{ field.as_hidden }}
-                </div>
-            {% elif "Source" in field.label_tag %}
-                <div class="input-group">
-                    {{ field }}
-                    <span class="input-group-btn">
-                        <button type="button" id="source_location_button_take_ride" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Source Location</button>
-                    </span>
-                </div>
-            {% elif "Destination" in field.label_tag %}
-                <div class="input-group">
-                    {{ field }}
-                    <span class="input-group-btn">
-                        <button type="button" id="destination_location_button_take_ride" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Destination Location</button>
-                    </span>
-                </div>
-            {% else %}
-                <label>{{field.label_tag}}</label>
-                <div> {{field}} </div>
-            {% endif %}
+    <div class="heading-text">
+        Take Ride
+    </div>
+    <div class="form-style-5">
+        <form action="" method="post" id="offerrideform">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    {% if "lati" in field.label_tag or "long" in field.label_tag %}
+                        <div class="input-group">
+                            {{ field.as_hidden }}
+                        </div>
+                    {% elif "Source" in field.label_tag %}
+                        <div class="input-group">
+                            {{ field }}
+                            <span class="input-group-btn">
+                                <button type="button" id="source_location_button_take_ride" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#myModal2">Source</button>
+                            </span>
+                        </div>
+                    {% elif "Destination" in field.label_tag %}
+                        <div class="input-group">
+                            {{ field }}
+                            <span class="input-group-btn">
+                                <button type="button" id="destination_location_button_take_ride" class="btn btn-primary btn-xl" data-toggle="modal" data-target="#myModal2">Destination</button>
+                            </span>
+                        </div>
+                    {% else %}
+                        <label>{{field.label_tag}}</label>
+                        <div> {{field}} </div>
+                    {% endif %}
 
-        </div>
-        {% endfor %}
-        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
-    </form>
+                </div>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+        </form>
+    </div>
     <div class="modal fade" id="myModal2">
         <div class="modal-dialog">
             <div class="modal-content">
