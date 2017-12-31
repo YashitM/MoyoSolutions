@@ -14,7 +14,7 @@ class RidesForm(forms.ModelForm):
     seats_available = forms.IntegerField()
     cost = forms.CharField(max_length=10)
     start_time = forms.CharField(max_length=100)
-    dateofride = DateField(widget=SelectDateWidget)
+    dateofride = forms.CharField(max_length=100)
     message = forms.TextInput()
     source_location = forms.CharField(max_length=1000)
     sou_lati = forms.CharField(max_length=1000)

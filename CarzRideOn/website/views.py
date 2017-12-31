@@ -2,10 +2,10 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from places.forms import PlacesField
 
 from website.models import Rides, UserRides
 from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm
+from push_notifications.models import APNSDevice, GCMDevice
 
 
 def index(request):
@@ -17,9 +17,7 @@ def offer_ride(request):
         if request.user.customuser_set.all().exists():
             if request.method == 'POST':
                 form = RidesForm(request.POST)
-                form_source = PlacesField(request.POST)
                 if form.is_valid():
-                    print("Form Validated")
                     ride = form.save(commit=False)
                     car_model = form.cleaned_data['car_model']
                     seats = form.cleaned_data['seats']
@@ -58,8 +56,7 @@ def offer_ride(request):
             return update_profile(request)
 
         form = RidesForm()
-        form_source = PlacesField()
-        return render(request, 'website/offerride.html', {"form": form, "form_source": form_source})
+        return render(request, 'website/offerride.html', {"form": form})
     else:
         return render(request, 'website/index.html', {"temp": "temp"})
 
@@ -98,6 +95,8 @@ def update_profile(request):
                 custom_user.user_id = request.user.id
                 custom_user.ref_status = "0"
                 form.save()
+                # device = GCMDevice(name=device_name, user=user, device_id=device_id,registration_id=device_registration_id)
+                # device.save()
                 return render(request, 'website/index.html', {'temp': 'temp'})
 
         form = UpdateProfileForm()
@@ -198,6 +197,15 @@ def view_requests(request):
         return render(request, 'website/index.html', {"temp": "temp"})
 
 
+def get_user_from_request(selected_request):
+    users = User.objects.all()
+    for user in users:
+        if user.socialaccount_set.all().exists():
+            if user.socialaccount_set.all()[0].uid == selected_request.fb_id:
+                return user.socialaccount_set.all()[0].extra_data['email']
+    return None
+
+
 def validate_ride_request(request, request_id):
     if request.user.is_authenticated:
         if request.user.customuser_set.all().exists():
@@ -206,6 +214,11 @@ def validate_ride_request(request, request_id):
                 if form.is_valid():
                     ride_request = UserRides.objects.get(pk=request_id)
                     ride_request.status = form.cleaned_data['validation'][0]
+                    if ride_request.status == "2":
+                        user_email = get_user_from_request(ride_request)
+                        # devices = GCMDevice.objects.filter(user__email=user_email)
+                        # devices.send_message("Happy name day!")
+                        # print("Sent to " + user_email)
                     ride_request.save()
                     return view_requests(request)
 
