@@ -1,0 +1,24 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="heading-text">
+            Contact Us
+        </div>
+        <div class="form-style-5">
+            <form action="" method="post" id="contact_form">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if "Type" in field.label_tag %}
+                        {{ field }}
+                    {% elif "Message" in field.label_tag %}
+                        <textarea name="{{ field.name }}" placeholder="Message" id="{{ field.id_for_label }}"></textarea>
+                    {% else %}
+                        <input type="text" id="{{ field.id_for_label }}" placeholder="{{ field.label }}" name="{{ field.name }}">
+                    {% endif %}
+                {% endfor %}
+                <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

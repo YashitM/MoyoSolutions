@@ -5,7 +5,7 @@ from django.forms import SelectDateWidget
 from places import Places
 from places.widgets import PlacesWidget
 from django.forms.fields import DateField
-from .models import Rides, CustomUser, UserRides
+from .models import Rides, CustomUser, UserRides, Contactus
 
 
 class RidesForm(forms.ModelForm):
@@ -70,3 +70,24 @@ class ValidateRequestForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         choices=VALIDATE_REQUEST_CHOICES,
     )
+
+
+MESSAGE_TYPE_CHOICES = (
+    ('Complaint', 'Complaint'),
+    ('Query', 'Query'),
+    ('Feedback', 'Feedback'),
+)
+
+
+class ContactForm(forms.ModelForm):
+    type = forms.ChoiceField(
+        required=True,
+        widget=forms.Select(),
+        choices=MESSAGE_TYPE_CHOICES,
+    )
+    image_url = forms.CharField(max_length=1000)
+    message = forms.TextInput()
+
+    class Meta:
+        model = Contactus
+        fields = ['type', 'message', 'image_url', ]

@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'^profile/$', views.view_profile, name="view_profile"),
     url(r'^update_profile/$', views.update_profile, name="update_profile"),
     url(r'^request_ride/(?P<ride_id>\d+)/$', views.request_ride, name="request_ride"),
+    url(r'^contact_us/$', views.contact_us, name="contact_us"),
     url(r'^validate_request/(?P<request_id>\d+)/$', views.validate_ride_request, name="validate_ride_request"),
 ]

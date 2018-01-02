@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 
 from website.models import Rides, UserRides
-from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm
+from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm, ContactForm
 
 
 def index(request):
@@ -233,6 +233,30 @@ def validate_ride_request(request, request_id):
                         request_owner = user.socialaccount_set.all()[0].extra_data['name']
             return render(request, 'website/validate_request.html',
                           {'request': selected_request, 'request_owner': request_owner, 'form': form})
+        else:
+            return update_profile(request)
+    else:
+        return render(request, 'website/index.html', {"temp": "temp"})
+
+
+def contact_us(request):
+    if request.user.is_authenticated:
+        if request.user.customuser_set.all().exists():
+            if request.method == 'POST':
+                form = ContactForm(request.POST)
+                if form.is_valid():
+                    contact = form.save(commit=False)
+                    contact.fb_id = request.user.customuser_set.all()[0].fb_id
+                    contact.type = form.cleaned_data['type']
+                    contact.message = form.cleaned_data['message']
+                    contact.attachment_url = form.cleaned_data['image_url']
+                    contact.save()
+                    return render(request, 'website/index.html', {"temp": "temp"})
+            form = ContactForm()
+            len = 1
+            for i in form:
+                print(i.name)
+            return render(request, 'website/contact_us.html', {'form': form})
         else:
             return update_profile(request)
     else:
