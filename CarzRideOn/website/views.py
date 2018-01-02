@@ -5,7 +5,6 @@ from django.shortcuts import render
 
 from website.models import Rides, UserRides
 from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm
-from push_notifications.models import APNSDevice, GCMDevice
 
 
 def index(request):
@@ -66,7 +65,8 @@ def view_profile(request):
         if request.user.customuser_set.all().exists():
             time = datetime.datetime.now().time()
             return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
-        return render(request, 'website/profile.html', {"update_profile": "False"})
+        time = datetime.datetime.now().time()
+        return render(request, 'website/profile.html', {"update_profile": "False", "current_time": time})
     return render(request, 'website/index.html', {"temp": "temp"})
 
 

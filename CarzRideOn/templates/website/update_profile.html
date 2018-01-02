@@ -6,20 +6,6 @@
     <div class="form-style-5">
         <form method="post" action="">
             {% csrf_token %}
-{#            <fieldset>#}
-{#                <legend><span class="number">1</span> Candidate Info</legend>#}
-{#                <label for="job">Gender:</label>#}
-{#                <select id="id_gender" name="field4">#}
-{#                    <option value="male">Male</option>#}
-{#                    <option value="female">Female</option>#}
-{#                </select>#}
-{#                <input type="text" id="id_dob" name="dob" placeholder="Date of Birth">#}
-{#                <input type="text" id="id_mobile" name="mobile" placeholder="Mobile">#}
-        {#        <textarea name="field3" placeholder="About yourself"></textarea>#}
-{#                <input type="text" id="id_company" name="company" placeholder="Company">#}
-{#                <input type="text" id="id_ref_number" name="ref_number" placeholder="Reference Number">#}
-{#                <input type="text" id="id_aadhar" name="aadhar" placeholder="Aadhar Number">#}
-{#            </fieldset>#}
             {% for field in form %}
                 <input type="text" id="{{ field.id_for_label }}" placeholder="{{ field.label }}" name="{{ field.name }}">
             {% endfor %}

@@ -13,7 +13,7 @@
                     {% else %}
                         <div class="outter"><img src="{{ user.socialaccount_set.all.0.extra_data.picture }}" class="image-circle"/></div>
                     {% endif %}
-                    <h1>Hi {{ user.first_name }}</h1>
+                    <h1 class="profile_name">{{ user.first_name }} {{ user.last_name }}</h1>
                 </div>
                 <div class="col-md-6 col-xs-6 follow line" align="center">
                     <h3>
@@ -29,18 +29,23 @@
                 <div class="col-md-12 col-xs-12 login_control">
 
                         <div class="control">
-                            <div class="label">Email Address:</div>
-                            <div class="">{{ user.email }}</div>
+                            <div class="label">Email Address</div>
+                            <div class="label_text">{{ user.email }}</div>
                         </div>
 
                         <div class="control">
                             <div class="label">Username</div>
-                            <div class="">{{ user.username }}</div>
+                            <div class="label_text">{{ user.username }}</div>
+                        </div>
+
+                        <div class="control">
+                            <div class="label">Username</div>
+                            <div class="label_text">{{ user.username }}</div>
                         </div>
 
                         <div align="center">
                             {% if "False" in update_profile %}
-                                <a href="{% url 'update_profile' %}">Update Profile</a>
+                                <a href="{% url 'update_profile' %}" class="btn btn-orange">Update Profile</a>
                             {% endif %}
                         </div>
 

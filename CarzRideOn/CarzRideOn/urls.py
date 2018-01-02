@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     url(r'', include('website.urls')),
+    url(r'', include('fcm.urls')),
 ]
 
 if settings.DEBUG:
