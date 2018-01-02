@@ -16,9 +16,9 @@
         <entry file="file://$PROJECT_DIR$/templates/website/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="18" column="68" lean-forward="false" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="68" />
+              <caret line="18" column="87" lean-forward="false" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
               <folding>
-                <element signature="e#3701#3706#0#HTML" expanded="true" />
+                <element signature="e#3720#3725#0#HTML" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -26,23 +26,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/website/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="109" lean-forward="false" selection-start-line="4" selection-start-column="109" selection-end-line="4" selection-end-column="109" />
+            <state relative-caret-position="396">
+              <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
               <folding>
-                <element signature="e#274#279#0#HTML" expanded="true" />
+                <element signature="e#129#183#0#HTML" expanded="true" />
+                <element signature="e#197#222#0#HTML" expanded="true" />
+                <element signature="e#276#301#0#HTML" expanded="true" />
+                <element signature="e#308#313#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="413" column="15" lean-forward="false" selection-start-line="413" selection-start-column="15" selection-end-line="413" selection-end-column="15" />
+            <state relative-caret-position="364">
+              <caret line="542" column="1" lean-forward="true" selection-start-line="542" selection-start-column="1" selection-end-line="542" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -66,6 +69,7 @@
       <find>device</find>
       <find>lead</find>
       <find>header</find>
+      <find>image</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -96,9 +100,9 @@
         <option value="$PROJECT_DIR$/website/views.py" />
         <option value="$PROJECT_DIR$/website/static/website/js/request_ride.js" />
         <option value="$PROJECT_DIR$/website/static/website/js/loader.js" />
-        <option value="$PROJECT_DIR$/website/static/website/css/style.css" />
         <option value="$PROJECT_DIR$/templates/website/base.html" />
         <option value="$PROJECT_DIR$/templates/website/index.html" />
+        <option value="$PROJECT_DIR$/website/static/website/css/style.css" />
       </list>
     </option>
   </component>
@@ -674,7 +678,7 @@
         <state relative-caret-position="884">
           <caret line="52" column="48" lean-forward="false" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
           <folding>
-            <element signature="e#3701#3706#0#HTML" expanded="true" />
+            <element signature="e#3720#3725#0#HTML" expanded="true" />
             <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -735,7 +739,7 @@
         <state relative-caret-position="884">
           <caret line="52" column="48" lean-forward="false" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
           <folding>
-            <element signature="e#3701#3706#0#HTML" expanded="true" />
+            <element signature="e#3720#3725#0#HTML" expanded="true" />
             <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
@@ -972,33 +976,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
+    <entry file="file://$PROJECT_DIR$/templates/website/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="413" column="15" lean-forward="false" selection-start-line="413" selection-start-column="15" selection-end-line="413" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="396">
+          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+          <folding>
+            <element signature="e#129#183#0#HTML" expanded="true" />
+            <element signature="e#197#222#0#HTML" expanded="true" />
+            <element signature="e#276#301#0#HTML" expanded="true" />
+            <element signature="e#308#313#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/website/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="18" column="68" lean-forward="false" selection-start-line="18" selection-start-column="56" selection-end-line="18" selection-end-column="68" />
+          <caret line="18" column="87" lean-forward="false" selection-start-line="18" selection-start-column="87" selection-end-line="18" selection-end-column="87" />
           <folding>
-            <element signature="e#3701#3706#0#HTML" expanded="true" />
+            <element signature="e#3720#3725#0#HTML" expanded="true" />
             <element signature="n#style#0;n#span#0;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#1;n#p#0;n#div#1;n#footer#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/website/index.html">
+    <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="109" lean-forward="false" selection-start-line="4" selection-start-column="109" selection-end-line="4" selection-end-column="109" />
-          <folding>
-            <element signature="e#274#279#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="364">
+          <caret line="542" column="1" lean-forward="true" selection-start-line="542" selection-start-column="1" selection-end-line="542" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
