@@ -411,7 +411,7 @@ header {
 
 @media (min-width: 992px) {
   header {
-    padding: 156px 0 100px;
+    padding: 186px 0 100px;
   }
 }
 
@@ -425,7 +425,6 @@ section {
     background-color: #3c3d41;
     color: white;
     padding-top: 30px;
-    margin-top: 50px;
 }
 
 #myFooter .footer-copyright {
@@ -541,4 +540,20 @@ section {
 	height: 100%;
 	z-index: 9999;
 	background: url('../images/Preloader_2.gif') center no-repeat #fff;
+}
+
+/*NAVBAR*/
+
+@media(min-width:768px) {
+  .navbar {
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+    padding: 15px 0;
+    /* Add additional styles here for the UNCOLLAPSED state */
+  }
+  .navbar.affix {
+    padding: 0;
+    /* Add additional styles here for the COLLAPSED state */
+  }
 }
