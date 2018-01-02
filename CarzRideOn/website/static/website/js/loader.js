@@ -1,6 +1,9 @@
 $(window).on('load', function() {
 		// Animate loader off screen
 		$(".se-pre-con").fadeOut("slow");;
-	});/**
- * Created by yashi on 02-Jan-18.
- */
+});
+
+window.sr = ScrollReveal({ duration: 2000 });
+sr.reveal(document.getElementById('about-left'));
+sr.reveal(document.getElementById('about-right'));
+sr.reveal(document.querySelectorAll('.sub-heading-div'));
