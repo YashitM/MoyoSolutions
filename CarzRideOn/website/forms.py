@@ -35,10 +35,11 @@ class UpdateProfileForm(forms.ModelForm):
     company = forms.CharField(max_length=100)
     ref_number = forms.CharField(max_length=100)
     aadhar = forms.CharField(max_length=100)
+    fcm_id = forms.CharField(max_length=1000)
 
     class Meta:
         model = CustomUser
-        fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar', ]
+        fields = ['gender', 'dob', 'mobile', 'company', 'ref_number', 'aadhar', 'fcm_id',]
 
 
 class SearchRideForm(forms.Form):

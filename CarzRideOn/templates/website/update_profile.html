@@ -1,15 +1,33 @@
 {% extends 'website/base.html' %}
 {% block content %}
-    <div class="heading-text">
-        Update Profile
-    </div>
-    <div class="form-style-5">
-        <form method="post" action="">
+    <div class="container padded-container">
+        <form class="form-login" method="post" action="#">
             {% csrf_token %}
-            {% for field in form %}
-                <input type="text" id="{{ field.id_for_label }}" placeholder="{{ field.label }}" name="{{ field.name }}">
-            {% endfor %}
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-log-in-with-email">
+                <div class="form-white-background">
+                    <div class="form-title-row">
+                        <h1>Update Profile</h1>
+                    </div>
+                    {% for field in form %}
+                        {% if "Fcm" in field.label_tag %}
+                            <div class="input-group">
+{#                                {{ field }}#}
+                                {{ field }}
+                            </div>
+                        {% else %}
+                            <div class="form-row">
+                                <label>
+                                    <span>{{ field.label_tag }}</span>
+                                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.name }}" placeholder="Enter {{ field.label }}">
+                                </label>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="form-row">
+                        <button type="submit" class="btn">Submit</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 {% endblock %}

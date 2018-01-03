@@ -82,6 +82,7 @@ def update_profile(request):
                 company = form.cleaned_data['company']
                 ref_number = form.cleaned_data['ref_number']
                 aadhar = form.cleaned_data['aadhar']
+                fcm_id = form.cleaned_data['fcm_id']
 
                 custom_user.fb_id = request.user.socialaccount_set.all()[0].uid
                 custom_user.name = request.user.socialaccount_set.all()[0].extra_data['name']
@@ -95,9 +96,8 @@ def update_profile(request):
                 custom_user.aadhar = aadhar
                 custom_user.user_id = request.user.id
                 custom_user.ref_status = "0"
+                custom_user.fcm_id = fcm_id
                 form.save()
-                # device = GCMDevice(name=device_name, user=user, device_id=device_id,registration_id=device_registration_id)
-                # device.save()
                 return render(request, 'website/index.html', {'temp': 'Profile has been updated!'})
 
         form = UpdateProfileForm()
