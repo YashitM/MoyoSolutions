@@ -76,27 +76,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="offerride.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="offerride.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/website/offerride.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="79" column="10" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="79" selection-end-column="10" />
+            <state relative-caret-position="612">
+              <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
               <folding>
-                <element signature="e#3238#3264#0#HTML" expanded="true" />
-                <element signature="e#3766#3792#0#HTML" expanded="true" />
+                <element signature="e#3421#3447#0#HTML" expanded="true" />
+                <element signature="e#3949#3975#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="takeride.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="takeride.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/website/takeride.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="17">
+              <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
               <folding>
-                <element signature="e#1207#1233#0#HTML" expanded="true" />
-                <element signature="e#1746#1772#0#HTML" expanded="true" />
+                <element signature="e#1146#1172#0#HTML" expanded="true" />
+                <element signature="e#1685#1711#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -167,8 +167,8 @@
         <option value="$PROJECT_DIR$/templates/website/contact_us.html" />
         <option value="$PROJECT_DIR$/website/static/website/css/style.css" />
         <option value="$PROJECT_DIR$/templates/website/base.html" />
-        <option value="$PROJECT_DIR$/templates/website/offerride.html" />
         <option value="$PROJECT_DIR$/templates/website/takeride.html" />
+        <option value="$PROJECT_DIR$/templates/website/offerride.html" />
       </list>
     </option>
   </component>
@@ -1107,24 +1107,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/website/offerride.html">
+    <entry file="file://$PROJECT_DIR$/templates/website/takeride.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="79" column="10" lean-forward="true" selection-start-line="2" selection-start-column="4" selection-end-line="79" selection-end-column="10" />
+        <state relative-caret-position="17">
+          <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
           <folding>
-            <element signature="e#3238#3264#0#HTML" expanded="true" />
-            <element signature="e#3766#3792#0#HTML" expanded="true" />
+            <element signature="e#1146#1172#0#HTML" expanded="true" />
+            <element signature="e#1685#1711#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/website/takeride.html">
+    <entry file="file://$PROJECT_DIR$/templates/website/offerride.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="612">
+          <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
           <folding>
-            <element signature="e#1207#1233#0#HTML" expanded="true" />
-            <element signature="e#1746#1772#0#HTML" expanded="true" />
+            <element signature="e#3421#3447#0#HTML" expanded="true" />
+            <element signature="e#3949#3975#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

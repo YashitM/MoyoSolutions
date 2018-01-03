@@ -42,15 +42,20 @@
                     <div class="form-row">
                         <label>
                             <span>Start Time</span>
-                            <input type="text" id="id_start_time" placeholder="Enter Start Time" name="start_time">
+                            <input type="time" id="id_start_time" placeholder="Enter Start Time" name="start_time">
                         </label>
                     </div>
                     <div class="form-row">
                         <label>
                             <span>Date Of Ride</span>
-                            <input type="text" id="id_dateofride" placeholder="Enter Date of Ride" name="dateofride">
+                            <input type="date" id="id_dateofride" name="dateofride">
                         </label>
                     </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#id_dateofride').datetimepicker();
+                        });
+                    </script>
                     <div class="form-row">
                         <label>
                             <span>Message</span>
