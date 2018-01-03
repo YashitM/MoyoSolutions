@@ -123,9 +123,7 @@
 
     <script src="{% static 'website/js/scrollreveal.js' %}"></script>
     <script src="{% static 'website/js/loader.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
     <script src="{% static 'website/js/maps.js' %}"></script>
-    <script src="{% static 'website/js/fcm_notifications.js' %}"></script>
 
     <script>
         var config = {
@@ -137,7 +135,6 @@
             var input = document.getElementById("id_fcm_id");
             const messaging = firebase.messaging();
             messaging.useServiceWorker(registration);
-{#            console.log(messaging.getToken());#}
             messaging.requestPermission()
                 .then(function() {
                     console.log('Notification permission granted.');
@@ -146,7 +143,6 @@
                             input.value = currentToken;
                         } else {
                           console.log('No Instance ID token available. Request permission to generate one.');
-                          // Show permission UI.
                         }
                         })
                         .catch(function(err) {
@@ -160,7 +156,6 @@
                 });
 
         }).catch(function (err) {
-          // registration failed :(
           console.log('ServiceWorker registration failed: ', err);
         });
     </script>

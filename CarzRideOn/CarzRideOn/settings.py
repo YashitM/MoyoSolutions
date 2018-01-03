@@ -39,27 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    'places',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-
-    # 'push_notifications',
-    'fcm',
 ]
-
-FCM_APIKEY = "AAAAmX9u_GE:APA91bH4HiNjUUGYFZRkDuyHwRB0OTbSAPiIv6hhL9CR49Ah5W37I_pJh33mlmjRm3uUVn738iXn7EV8hIZPHryh18V1DhxMxQ3bpa4T169aas6cHJmq3aWoKJ8Yr5CFc6Do7Wjm9kvN"
-
-
-PUSH_NOTIFICATIONS_SETTINGS = {
-        "FCM_API_KEY": "AAAAmX9u_GE:APA91bH4HiNjUUGYFZRkDuyHwRB0OTbSAPiIv6hhL9CR49Ah5W37I_pJh33mlmjRm3uUVn738iXn7EV8hIZPHryh18V1DhxMxQ3bpa4T169aas6cHJmq3aWoKJ8Yr5CFc6Do7Wjm9kvN",
-        "GCM_API_KEY": "AIzaSyBoY_f5J5PlZW6ztkOztZpFRI46c9e5VMU",
-        # "WNS_PACKAGE_SECURITY_ID": "[your package security id, e.g: 'ms-app://e-3-4-6234...']",
-        "WNS_SECRET_KEY": "vf0+vyoepezq#87)4u!$cvbar^)5bujht-0z2#wvex@f=l%rxw",
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

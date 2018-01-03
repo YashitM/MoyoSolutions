@@ -1,7 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, User
 from django.db import models
-from places.fields import PlacesField
 
 
 class Contactus(models.Model):
