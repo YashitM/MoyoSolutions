@@ -1,24 +1,42 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="heading-text">
-            Contact Us
-        </div>
-        <div class="form-style-5">
-            <form action="" method="post" id="contact_form">
-                {% csrf_token %}
-                {% for field in form %}
-                    {% if "Type" in field.label_tag %}
-                        {{ field }}
-                    {% elif "Message" in field.label_tag %}
-                        <textarea name="{{ field.name }}" placeholder="Message" id="{{ field.id_for_label }}"></textarea>
-                    {% else %}
-                        <input type="text" id="{{ field.id_for_label }}" placeholder="{{ field.label }}" name="{{ field.name }}">
-                    {% endif %}
-                {% endfor %}
-                <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
-            </form>
-        </div>
+    <div class="container padded-container">
+        <form class="form-login" method="post" action="#">
+            {% csrf_token %}
+            <div class="form-log-in-with-email">
+                <div class="form-white-background">
+                    <div class="form-title-row">
+                        <h1>Contact Us</h1>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <span>Reason</span>
+                            <select name="type" id="id_type">
+                                <option selected>Select Reason</option>
+                                <option value="Complaint">Complaint</option>
+                                <option value="Query">Query</option>
+                                <option value="Feedback">Feedback</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <span>Message</span>
+                            <textarea name="message" placeholder="Enter Message" id="id_message"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <span>Attachment</span>
+                            <input type="text" id="id_image_url" placeholder="Enter URL" name="image_url">
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 {% endblock %}

@@ -191,7 +191,10 @@ def view_requests(request):
             for ride_request in all_ride_requests:
                 if ride_request.id in all_rides_id and ride_request.status == "1":
                     filtered_ride_requests.append(ride_request)
-            return render(request, 'website/view_request.html', {'requests': filtered_ride_requests})
+            if filtered_ride_requests:
+                return render(request, 'website/view_request.html', {'requests': filtered_ride_requests})
+            else:
+                return render(request, 'website/index.html', {"temp": "No Pending Requests."})
         else:
             return update_profile(request)
     else:
