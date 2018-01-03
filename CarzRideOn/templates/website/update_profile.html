@@ -11,7 +11,7 @@
                     {% for field in form %}
                         {% if "Fcm" in field.label_tag %}
                             <div class="input-group">
-                                {{ field }}
+                                {{ field.as_hidden }}
                             </div>
                         {% else %}
                             <div class="form-row">
