@@ -8,7 +8,7 @@ from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm
 
 
 def index(request):
-    return render(request, 'website/index.html', {"temp": "temp"})
+    return render(request, 'website/index.html', {"temp": ""})
 
 
 def offer_ride(request):
@@ -50,7 +50,7 @@ def offer_ride(request):
                     ride.source_longitude = lon_sou
                     form.save()
 
-                    return render(request, 'website/index.html', {'temp': 'temp'})
+                    return render(request, 'website/index.html', {'temp': 'Ride has been created!'})
         else:
             return update_profile(request)
 
@@ -98,7 +98,7 @@ def update_profile(request):
                 form.save()
                 # device = GCMDevice(name=device_name, user=user, device_id=device_id,registration_id=device_registration_id)
                 # device.save()
-                return render(request, 'website/index.html', {'temp': 'temp'})
+                return render(request, 'website/index.html', {'temp': 'Profile has been updated!'})
 
         form = UpdateProfileForm()
         return render(request, 'website/update_profile.html', {"form": form})
@@ -160,7 +160,7 @@ def request_ride(request, ride_id):
                     ride_request.message = form.cleaned_data['message']
 
                     form.save()
-                    return render(request, 'website/index.html', {"temp": "temp"})
+                    return render(request, 'website/index.html', {"temp": "Ride Request Sent!"})
 
             selected_ride = Rides.objects.get(pk=ride_id)
             users = User.objects.all()
@@ -251,7 +251,7 @@ def contact_us(request):
                     contact.message = form.cleaned_data['message']
                     contact.attachment_url = form.cleaned_data['image_url']
                     contact.save()
-                    return render(request, 'website/index.html', {"temp": "temp"})
+                    return render(request, 'website/index.html', {"temp": "Message has been sent!"})
             form = ContactForm()
             len = 1
             for i in form:

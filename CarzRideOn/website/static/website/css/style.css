@@ -470,6 +470,20 @@ section {
     }
 }
 
+/*html {*/
+  /*position: relative;*/
+  /*min-height: 70%;*/
+/*}*/
+/*!*body {*!*/
+  /*!*margin-bottom: 60px; !* Margin bottom by footer height *!*!*/
+/*!*}*!*/
+/*.footer {*/
+  /*position: absolute;*/
+  /*bottom: 0;*/
+  /*width: 100%;*/
+  /*background-color: #3c3d41;*/
+/*}*/
+
 /* SCREEN LOADER */
 
 .no-js #loader { display: none;  }

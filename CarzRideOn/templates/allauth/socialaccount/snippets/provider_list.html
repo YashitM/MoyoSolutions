@@ -1,0 +1,21 @@
+{% load socialaccount %}
+
+{% block content %}
+    {% get_providers as socialaccount_providers %}
+    <div class="container">
+        <div class="heading-text">
+            Login
+        </div>
+        <div class="social-buttons">
+            {% for provider in socialaccount_providers %}
+                {% if provider.name == "Facebook" %}
+                    <a title="{{provider.name}}" class="social-button facebook" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-facebook"></i><br></a>
+                {% endif %}
+                {% if provider.name == "Google" %}
+                    <a title="{{provider.name}}" class="social-button google" href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-google-plus"></i><br></a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+	
