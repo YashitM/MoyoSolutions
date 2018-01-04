@@ -28,9 +28,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.3/js/mdb.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"></script>
 
 
     <script src="{% static 'website/js/logout.js' %}"></script>
@@ -126,44 +126,53 @@
     <script src="{% static 'website/js/scrollreveal.js' %}"></script>
     <script src="{% static 'website/js/loader.js' %}"></script>
     <script src="{% static 'website/js/maps.js' %}"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js"></script>
 
-    <script>
-        var config = {
-            messagingSenderId: "659267976289"
-          };
-        firebase.initializeApp(config);
 
-        navigator.serviceWorker.register("{% static 'website/js/firebase-messaging-sw.js' %}").then(function (registration) {
-            var input = document.getElementById("id_fcm_id");
-            const messaging = firebase.messaging();
-            messaging.useServiceWorker(registration);
-            messaging.requestPermission()
-                .then(function() {
-                    console.log('Notification permission granted.');
-                    messaging.getToken().then(function(currentToken) {
-                        if (currentToken) {
-                            if(window.location.href.indexOf("update_profile")!== -1) {
-                                input.value = currentToken;
-                            }
-                            console.log(currentToken);
-                        } else {
-                          console.log('No Instance ID token available. Request permission to generate one.');
-                        }
-                        })
-                        .catch(function(err) {
-                            console.log('An error occurred while retrieving token. ', err);
-                            showToken('Error retrieving Instance ID token. ', err);
-                            setTokenSentToServer(false);
-                    });
-                })
-                .catch(function(err) {
-                    console.log('Unable to get permission to notify.', err);
-                });
+<script>
+  firebase.initializeApp({
+      messagingSenderId: "659267976289",
+      apiKey: "AIzaSyDi7Jsa94Me66Y1kUXKR7ioLAljsq51-GM"
+  });
 
-        }).catch(function (err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-    </script>
+  const messaging = firebase.messaging();
+  navigator.serviceWorker.register("{% static 'website/js/firebase-messaging-sw.js' %}").then(function (registration) {
+    messaging.useServiceWorker(registration);
+    requestPermission();
+    messaging.getToken()
+        .then(function(currentToken) {
+            if (currentToken) {
+                console.log(currentToken);
+            } else {
+                console.log('No Instance ID token available. Request permission to generate one.');
+            }
+        })
+        .catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err);
+        })
+    }).catch(function (err) {
+        console.log('ServiceWorker registration failed: ', err);
+    });
+
+    messaging.onMessage(function(payload) {
+        console.log("Message received. ", payload);
+        $.notify({
+                message: '{{ temp }}',
+                type: 'success'
+            });
+    });
+
+  function requestPermission() {
+    messaging.requestPermission()
+    .then(function() {
+      console.log('Notification permission granted.');
+    })
+    .catch(function(err) {
+      console.log('Unable to get permission to notify.', err);
+    });
+  }
+</script>
 
 </body>
 </html>
