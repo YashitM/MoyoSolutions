@@ -42,7 +42,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/website/profile.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -67,8 +67,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1535">
-              <caret line="644" column="18" lean-forward="false" selection-start-line="644" selection-start-column="18" selection-end-line="644" selection-end-column="18" />
+            <state relative-caret-position="523">
+              <caret line="634" column="41" lean-forward="true" selection-start-line="634" selection-start-column="41" selection-end-line="634" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -104,12 +104,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="searchride.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="searchride.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/website/searchride.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
-              <folding />
+            <state relative-caret-position="272">
+              <caret line="16" column="269" lean-forward="false" selection-start-line="16" selection-start-column="269" selection-end-line="16" selection-end-column="269" />
+              <folding>
+                <element signature="e#601#641#0#HTML" expanded="true" />
+                <element signature="e#665#671#0#HTML" expanded="true" />
+                <element signature="e#671#677#0#HTML" expanded="true" />
+                <element signature="e#896#936#0#HTML" expanded="true" />
+                <element signature="e#960#966#0#HTML" expanded="true" />
+                <element signature="e#966#972#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,10 +180,10 @@
         <option value="$PROJECT_DIR$/templates/website/base.html" />
         <option value="$PROJECT_DIR$/website/static/website/js/maps.js" />
         <option value="$PROJECT_DIR$/templates/website/update_profile.html" />
-        <option value="$PROJECT_DIR$/templates/website/searchride.html" />
-        <option value="$PROJECT_DIR$/website/static/website/css/style.css" />
         <option value="$PROJECT_DIR$/templates/website/index.html" />
         <option value="$PROJECT_DIR$/templates/website/profile.html" />
+        <option value="$PROJECT_DIR$/website/static/website/css/style.css" />
+        <option value="$PROJECT_DIR$/templates/website/searchride.html" />
       </list>
     </option>
   </component>
@@ -965,22 +972,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/website/searchride.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1535">
-          <caret line="644" column="18" lean-forward="false" selection-start-line="644" selection-start-column="18" selection-end-line="644" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/website/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1044,6 +1035,29 @@
         <state relative-caret-position="102">
           <caret line="6" column="55" lean-forward="false" selection-start-line="6" selection-start-column="55" selection-end-line="6" selection-end-column="55" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/website/static/website/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="634" column="41" lean-forward="true" selection-start-line="634" selection-start-column="41" selection-end-line="634" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/website/searchride.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="269" lean-forward="false" selection-start-line="16" selection-start-column="269" selection-end-line="16" selection-end-column="269" />
+          <folding>
+            <element signature="e#601#641#0#HTML" expanded="true" />
+            <element signature="e#665#671#0#HTML" expanded="true" />
+            <element signature="e#671#677#0#HTML" expanded="true" />
+            <element signature="e#896#936#0#HTML" expanded="true" />
+            <element signature="e#960#966#0#HTML" expanded="true" />
+            <element signature="e#966#972#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

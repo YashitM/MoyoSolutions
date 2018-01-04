@@ -13,7 +13,9 @@
                 <div class="card">
                     <div class="card-header">Ride By <b>{% get_at_index owners forloop.counter0 %}</b></div>
                     <div class="card-block">
-                        <h4 class="card-title"><span class="search-location-text">{{ ride.source }}</span> to <span class="search-location-text">{{ ride.destination }}</span></h4>
+                        <p class="card-title">
+                            <center><i class="fa fa-map-marker" style="color: #b2dd4c; font-size: 25px;" aria-hidden="true"></i>&nbsp;&nbsp;<span class="search-location-text">{{ ride.source }}</span> <br> <i class="fa fa-arrows-v" style="font-size: 35px; padding-top: 6px;" aria-hidden="true"></i> <br>
+                            <i class="fa fa-map-marker" style="color: #b2dd4c; font-size: 25px;" aria-hidden="true"></i>&nbsp;&nbsp;<span class="search-location-text">{{ ride.destination }}</center></span></p>
                         <p class="card-text">
                             Date: {{ ride.dateofride }}<br>
                             Time: {{ ride.start_time }}<br>
