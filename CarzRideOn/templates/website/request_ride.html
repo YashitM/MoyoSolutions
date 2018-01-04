@@ -1,20 +1,26 @@
 {% extends 'website/base.html' %}
 
 {% block content %}
-
-    <div class="container">
-        <div class="heading-text">
-            Request Ride from {{ selected_ride_owner }}
-        </div>
-        <form action="" method="post">
+    <div class="container padded-container">
+        <form class="form-login" method="post" action="">
             {% csrf_token %}
-            {% for field in form %}
-                {{ field.label_tag }}
-                {{ field }}
-            {% endfor %}
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-log-in-with-email">
+                <div class="form-white-background">
+                    <div class="form-title-row">
+                        <h1>Request Ride from {{ selected_ride_owner }}</h1>
+                    </div>
+                    <div class="form-row">
+                        <label>
+                            <span>Message</span>
+                            <input type="text" name="message" maxlength="1000" id="id_message">
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn">Submit</button>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
-
 
 {% endblock %}
