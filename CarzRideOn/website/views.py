@@ -2,9 +2,10 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.shortcuts import render
-
 from website.models import Rides, UserRides
 from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm, ContactForm
+
+from fcm_django.models import FCMDevice
 
 
 def index(request):
@@ -97,6 +98,13 @@ def update_profile(request):
                 custom_user.user_id = request.user.id
                 custom_user.ref_status = "0"
                 custom_user.fcm_id = fcm_id
+
+                new_device = FCMDevice()
+                new_device.registration_id = fcm_id
+                new_device.type = "web"
+                new_device.name = fcm_id + "web"
+                new_device.save()
+
                 form.save()
                 return render(request, 'website/index.html', {'temp': 'Profile has been updated!'})
 
@@ -254,6 +262,7 @@ def contact_us(request):
                     contact.message = form.cleaned_data['message']
                     contact.attachment_url = form.cleaned_data['image_url']
                     contact.save()
+
                     return render(request, 'website/index.html', {"temp": "Message has been sent!"})
             form = ContactForm()
             len = 1

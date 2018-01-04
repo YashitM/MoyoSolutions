@@ -39,12 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    "fcm_django",
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
 ]
+
+FCM_DJANGO_SETTINGS = {
+        "FCM_SERVER_KEY": "AAAAmX9u_GE:APA91bH4HiNjUUGYFZRkDuyHwRB0OTbSAPiIv6hhL9CR49Ah5W37I_pJh33mlmjRm3uUVn738iXn7EV8hIZPHryh18V1DhxMxQ3bpa4T169aas6cHJmq3aWoKJ8Yr5CFc6Do7Wjm9kvN",
+         # true if you want to have only one active device per registered user at a time
+         # default: False
+        # "ONE_DEVICE_PER_USER": True/False,
+         # devices to which notifications cannot be sent,
+         # are deleted upon receiving error response from FCM
+         # default: False
+        # "DELETE_INACTIVE_DEVICES": True/False,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

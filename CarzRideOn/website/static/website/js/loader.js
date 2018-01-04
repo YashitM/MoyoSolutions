@@ -3,6 +3,7 @@ $(window).on('load', function() {
 		$(".se-pre-con").fadeOut("slow");;
 });
 
+
 window.sr = ScrollReveal({ duration: 2000 });
 sr.reveal(document.getElementById('about-left'));
 sr.reveal(document.getElementById('about-right'));

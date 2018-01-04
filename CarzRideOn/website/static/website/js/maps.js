@@ -1,5 +1,5 @@
 //Google Maps
-if(window.location.href === "http://localhost:8000/takerides/" || window.location.href === "http://localhost:8000/offerrides/") {
+if(window.location.href.indexOf("takerides")!== -1 || window.location.href.indexOf("offerrides")!== -1) {
     defaultLatLong = {lat: 12.978718, lng: 77.589731};
 
     var map = new google.maps.Map(document.getElementById('map'), {
