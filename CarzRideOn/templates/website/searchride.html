@@ -3,12 +3,12 @@
 
 {% block content %}
     {% load extra_commands %}
-    <div class="container">
-        Source: {{ s_location }}<br>
-        Destination: {{ d_location }}<br>
+    <div class="container padded-container">
+        <div class="heading-text">
+            Available Rides
+        </div>
         <br>
         {% if available_rides %}
-            <h2>Available Rides</h2>
             {% for ride in available_rides %}
                 <div class="card">
                     <div class="card-header">Ride By <b>{% get_at_index owners forloop.counter0 %}</b></div>
