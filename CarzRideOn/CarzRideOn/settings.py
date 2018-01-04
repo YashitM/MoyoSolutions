@@ -50,13 +50,6 @@ INSTALLED_APPS = [
 
 FCM_DJANGO_SETTINGS = {
         "FCM_SERVER_KEY": "AAAAmX9u_GE:APA91bH4HiNjUUGYFZRkDuyHwRB0OTbSAPiIv6hhL9CR49Ah5W37I_pJh33mlmjRm3uUVn738iXn7EV8hIZPHryh18V1DhxMxQ3bpa4T169aas6cHJmq3aWoKJ8Yr5CFc6Do7Wjm9kvN",
-         # true if you want to have only one active device per registered user at a time
-         # default: False
-        # "ONE_DEVICE_PER_USER": True/False,
-         # devices to which notifications cannot be sent,
-         # are deleted upon receiving error response from FCM
-         # default: False
-        # "DELETE_INACTIVE_DEVICES": True/False,
 }
 
 MIDDLEWARE = [
@@ -87,6 +80,12 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_LOADERS = (
+   'django.template.loaders.filesystem.Loader',
+   'django.template.loaders.app_directories.Loader',
+   #'django.template.loaders.eggs.Loader',
+)
 
 WSGI_APPLICATION = 'CarzRideOn.wsgi.application'
 
@@ -173,5 +172,4 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/"
 
-# GEOPOSITION_GOOGLE_MAPS_API_KEY = 'AIzaSyDV_0oYU6bmeilWmG6jnzf27WGlEtn-S64'
 PLACES_MAPS_API_KEY = 'AIzaSyCTYjDhEfBVeuW7C_zZd5ZzAv86d3ry1CI'

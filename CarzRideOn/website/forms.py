@@ -1,10 +1,5 @@
 import datetime
 from django import forms
-from django.contrib.admin.widgets import AdminDateWidget
-from django.forms import SelectDateWidget
-from places import Places
-from places.widgets import PlacesWidget
-from django.forms.fields import DateField
 from .models import Rides, CustomUser, UserRides, Contactus
 
 
