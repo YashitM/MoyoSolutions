@@ -81,12 +81,6 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_LOADERS = (
-   'django.template.loaders.filesystem.Loader',
-   'django.template.loaders.app_directories.Loader',
-   #'django.template.loaders.eggs.Loader',
-)
-
 WSGI_APPLICATION = 'CarzRideOn.wsgi.application'
 
 # Database

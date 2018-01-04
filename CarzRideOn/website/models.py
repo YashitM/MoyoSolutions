@@ -1,6 +1,6 @@
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, User
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Contactus(models.Model):
@@ -42,6 +42,7 @@ class Rides(models.Model):
 
     class Meta:
         db_table = 'rides'
+
 
 class UserRides(models.Model):
     fb_id = models.CharField(max_length=100, blank=True, null=True)
