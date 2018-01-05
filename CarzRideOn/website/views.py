@@ -2,7 +2,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from website.models import Rides, UserRides
+from website.models import Rides, UserRides, CustomUser
 from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm, ValidateRequestForm, ContactForm
 
 from fcm_django.models import FCMDevice
@@ -63,7 +63,7 @@ def offer_ride(request):
 
 def view_profile(request):
     if request.user.is_authenticated():
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             time = datetime.datetime.now().time()
             return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
         time = datetime.datetime.now().time()
@@ -76,7 +76,7 @@ def update_profile(request):
         if request.method == 'POST':
             form = UpdateProfileForm(request.POST)
             if form.is_valid():
-                custom_user = form.save(commit=False)
+                custom_user = CustomUser.objects.get(user_id=request.user.id)
                 gender = form.cleaned_data['gender']
                 dob = form.cleaned_data['dob']
                 mobile = form.cleaned_data['mobile']
@@ -85,27 +85,22 @@ def update_profile(request):
                 aadhar = form.cleaned_data['aadhar']
                 fcm_id = form.cleaned_data['fcm_id']
 
-                custom_user.fb_id = request.user.socialaccount_set.all()[0].uid
-                custom_user.name = request.user.socialaccount_set.all()[0].extra_data['name']
-                custom_user.email = request.user.socialaccount_set.all()[0].extra_data['email']
                 custom_user.gender = gender
                 custom_user.dob = dob
                 custom_user.mobile = mobile
                 custom_user.company = company
                 custom_user.ref_number = ref_number
-                custom_user.created_at = datetime.datetime.now()
                 custom_user.aadhar = aadhar
-                custom_user.user_id = request.user.id
                 custom_user.ref_status = "0"
                 custom_user.fcm_id = fcm_id
 
                 new_device = FCMDevice()
                 new_device.registration_id = fcm_id
                 new_device.type = "web"
-                new_device.name = fcm_id + "web"
+                new_device.name = "web" + str(new_device.id)
                 new_device.save()
 
-                form.save()
+                custom_user.save()
                 return render(request, 'website/index.html', {'custom_notifications': 'Profile has been updated!'})
 
         form = UpdateProfileForm()

@@ -13,6 +13,24 @@
                             <div class="input-group">
                                 {{ field.as_hidden }}
                             </div>
+                        {% elif "Gender" in field.label_tag %}
+                             <div class="form-row">
+                                <label>
+                                    <span>Gender</span>
+                                    <select name="gender" id="id_gender">
+                                        <option selected>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </label>
+                            </div>
+                        {% elif "Dob" in field.label_tag %}
+                             <div class="form-row">
+                                <label>
+                                    <span>{{ field.label_tag }}</span>
+                                    <input type="date" id="{{ field.id_for_label }}" name="{{ field.name }}" placeholder="Enter {{ field.label }}">
+                                </label>
+                            </div>
                         {% else %}
                             <div class="form-row">
                                 <label>
