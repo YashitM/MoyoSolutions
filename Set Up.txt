@@ -1,0 +1,19 @@
+These are the install commands for dependancies required by the Website:
+1) pip install django-allauth (Library Version: 0.34.0)
+2) pip install mysqlclient (Library Version: 1.3.12, Link: https://www.lfd.uci.edu/~gohlke/pythonlibs/#mysqlclient)
+3) pip install fcm-django (Library Version: 0.2.13)
+
+After setting up all the dependancies,
+1) Set up a temporary MySQL database on the server, and enter the details of the DB in the "settings.py" file located in the "MoyoSolutions\CarzRideOn\CarzRideOn" Directory. Line 91 has a dictionary named "DATABASES". Enter all the details of the DB there.
+2) Go to the "MoyoSolutions\CarzRideOn" and run the following commands: 
+	a) python manage.py makemigrations
+	b) python manage.py migrate
+	c) python manage.py createsuperuser
+		- For this command you will have to enter the admin username and password. Email can be skipped by pressing "Enter" when asked.
+	d) python manage.py runserver
+3) Go to the admin page of the website by going to "https://www.websitename.com/admin" URL, and login using the credentials that were set before. And then do the following:
+	a) Under the Site Administration, Click on "Sites". Click on "example.com" and change the "Domain Name" field to the Domain of the hosted website. Then enter a preferred Display name.
+	b) Go back to the site administration and click on "Social Applications". Click on "Add Social Application" on the top right.
+		- Select the "Provider" as Google, Enter a chosen "Name", Enter the "Client ID" and "Secret Key" from the Google Developer Console. Leave "Key" blank and select the "Site" and move it to the box on the right. Click on "Save and Add Another" on the bottom right of the page.
+		- Select the "Provider" as Facebook, Enter a chosen "Name", Enter the "Client ID" and "Secret Key" from the Facebook Developer Console. Leave "Key" blank and select the "Site" and move it to the box on the right. Click on "Save" on the bottom right of the page.
+4) Go back to terminal and restart the server.
