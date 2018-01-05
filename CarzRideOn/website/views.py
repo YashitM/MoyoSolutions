@@ -97,7 +97,7 @@ def update_profile(request):
                 new_device = FCMDevice()
                 new_device.registration_id = fcm_id
                 new_device.type = "web"
-                new_device.name = "web" + str(new_device.id)
+                new_device.user_id = request.user.id
                 new_device.save()
 
                 custom_user.save()
