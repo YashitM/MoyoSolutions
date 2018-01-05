@@ -11,10 +11,10 @@
       </div>
     </header>
 
-    {% if temp %}
+    {% if custom_notifications %}
         <script>
             $.notify({
-                message: '{{ temp }}',
+                message: '{{ custom_notifications }}',
                 type: 'success'
             });
         </script>

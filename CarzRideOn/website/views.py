@@ -9,7 +9,7 @@ from fcm_django.models import FCMDevice
 
 
 def index(request):
-    return render(request, 'website/index.html', {"temp": ""})
+    return render(request, 'website/index.html', {"custom_notifications": ""})
 
 
 def offer_ride(request):
@@ -51,14 +51,14 @@ def offer_ride(request):
                     ride.source_longitude = lon_sou
                     form.save()
 
-                    return render(request, 'website/index.html', {'temp': 'Ride has been created!'})
+                    return render(request, 'website/index.html', {'custom_notifications': 'Ride has been created!'})
         else:
             return update_profile(request)
 
         form = RidesForm()
         return render(request, 'website/offerride.html', {"form": form})
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": ""})
 
 
 def view_profile(request):
@@ -68,7 +68,7 @@ def view_profile(request):
             return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
         time = datetime.datetime.now().time()
         return render(request, 'website/profile.html', {"update_profile": "False", "current_time": time})
-    return render(request, 'website/index.html', {"temp": "temp"})
+    return render(request, 'website/index.html', {"custom_notifications": ""})
 
 
 def update_profile(request):
@@ -106,12 +106,12 @@ def update_profile(request):
                 new_device.save()
 
                 form.save()
-                return render(request, 'website/index.html', {'temp': 'Profile has been updated!'})
+                return render(request, 'website/index.html', {'custom_notifications': 'Profile has been updated!'})
 
         form = UpdateProfileForm()
         return render(request, 'website/update_profile.html', {"form": form})
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": ""})
 
 
 def take_ride(request):
@@ -151,7 +151,7 @@ def take_ride(request):
             return update_profile(request)
 
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def request_ride(request, ride_id):
@@ -168,7 +168,7 @@ def request_ride(request, ride_id):
                     ride_request.message = form.cleaned_data['message']
 
                     form.save()
-                    return render(request, 'website/index.html', {"temp": "Ride Request Sent!"})
+                    return render(request, 'website/index.html', {"custom_notifications": "Ride Request Sent!"})
 
             selected_ride = Rides.objects.get(pk=ride_id)
             users = User.objects.all()
@@ -184,7 +184,7 @@ def request_ride(request, ride_id):
             return update_profile(request)
 
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def view_requests(request):
@@ -202,11 +202,11 @@ def view_requests(request):
             if filtered_ride_requests:
                 return render(request, 'website/view_request.html', {'requests': filtered_ride_requests})
             else:
-                return render(request, 'website/index.html', {"temp": "No Pending Requests."})
+                return render(request, 'website/index.html', {"custom_notifications": "No Pending Requests."})
         else:
             return update_profile(request)
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def get_user_from_request(selected_request):
@@ -228,9 +228,9 @@ def validate_ride_request(request, request_id):
                     ride_request.status = form.cleaned_data['validation'][0]
                     if ride_request.status == "2":
                         user_email = get_user_from_request(ride_request)
-                        # devices = GCMDevice.objects.filter(user__email=user_email)
+                        # devices = FCMDevice.objects.get(registration_id=request.user.customuser_set)
                         # devices.send_message("Happy name day!")
-                        # print("Sent to " + user_email)
+                        print("Sent to " + user_email)
                     ride_request.save()
                     return view_requests(request)
 
@@ -247,7 +247,7 @@ def validate_ride_request(request, request_id):
         else:
             return update_profile(request)
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def contact_us(request):
@@ -263,13 +263,12 @@ def contact_us(request):
                     contact.attachment_url = form.cleaned_data['image_url']
                     contact.save()
 
-                    return render(request, 'website/index.html', {"temp": "Message has been sent!"})
+                    return render(request, 'website/index.html', {"custom_notifications": "Message has been sent!"})
             form = ContactForm()
-            len = 1
             for i in form:
                 print(i.name)
             return render(request, 'website/contact_us.html', {'form': form})
         else:
             return update_profile(request)
     else:
-        return render(request, 'website/index.html', {"temp": "temp"})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
