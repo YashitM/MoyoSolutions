@@ -143,7 +143,11 @@
     messaging.getToken()
         .then(function(currentToken) {
             if (currentToken) {
-                console.log(currentToken);
+                if(window.location.href.indexOf("update_profile")) {
+                    var fcm_input = document.getElementById("id_fcm_id");
+                    fcm_input.value = currentToken;
+                }
+                console.log("Token Generated");
             } else {
                 console.log('No Instance ID token available. Request permission to generate one.');
             }
