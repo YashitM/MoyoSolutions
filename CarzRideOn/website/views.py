@@ -14,7 +14,7 @@ def index(request):
 
 def offer_ride(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             if request.method == 'POST':
                 form = RidesForm(request.POST)
                 if form.is_valid():
@@ -116,7 +116,7 @@ def update_profile(request):
 
 def take_ride(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             if request.method == 'POST':
                 form = SearchRideForm(request.POST)
                 if form.is_valid():
@@ -156,7 +156,7 @@ def take_ride(request):
 
 def request_ride(request, ride_id):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             if request.method == 'POST':
                 form = RequestRideForm(request.POST)
                 if form.is_valid():
@@ -189,7 +189,7 @@ def request_ride(request, ride_id):
 
 def view_requests(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             all_rides = Rides.objects.filter(fb_id=request.user.socialaccount_set.all()[0].uid)
             all_rides_id = []
             for ride in all_rides:
@@ -220,7 +220,7 @@ def get_user_from_request(selected_request):
 
 def validate_ride_request(request, request_id):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             if request.method == 'POST':
                 form = ValidateRequestForm(request.POST)
                 if form.is_valid():
@@ -252,7 +252,7 @@ def validate_ride_request(request, request_id):
 
 def contact_us(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all().exists():
+        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
             if request.method == 'POST':
                 form = ContactForm(request.POST)
                 if form.is_valid():
