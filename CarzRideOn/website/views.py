@@ -73,38 +73,52 @@ def view_profile(request):
 
 def update_profile(request):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = UpdateProfileForm(request.POST)
-            if form.is_valid():
-                custom_user = CustomUser.objects.get(user_id=request.user.id)
-                gender = form.cleaned_data['gender']
-                dob = form.cleaned_data['dob']
-                mobile = form.cleaned_data['mobile']
-                company = form.cleaned_data['company']
-                ref_number = form.cleaned_data['ref_number']
-                aadhar = form.cleaned_data['aadhar']
-                fcm_id = form.cleaned_data['fcm_id']
+        if not request.user.customuser_set.all()[0].mobile and not request.user.customuser_set.all()[0].fcm_id:
+            if request.method == 'POST':
+                form = UpdateProfileForm(request.POST)
+                if form.is_valid():
+                    custom_user = CustomUser.objects.get(user_id=request.user.id)
+                    gender = form.cleaned_data['gender']
+                    dob = form.cleaned_data['dob']
+                    mobile = form.cleaned_data['mobile']
+                    company = form.cleaned_data['company']
+                    ref_number = form.cleaned_data['ref_number']
+                    aadhar = form.cleaned_data['aadhar']
+                    fcm_id = form.cleaned_data['fcm_id']
 
-                custom_user.gender = gender
-                custom_user.dob = dob
-                custom_user.mobile = mobile
-                custom_user.company = company
-                custom_user.ref_number = ref_number
-                custom_user.aadhar = aadhar
-                custom_user.ref_status = "0"
-                custom_user.fcm_id = fcm_id
+                    if "+91" in ref_number:
+                        ref_number = ref_number.replace("+91", "")
 
-                new_device = FCMDevice()
-                new_device.registration_id = fcm_id
-                new_device.type = "web"
-                new_device.user_id = request.user.id
-                new_device.save()
+                    custom_user.gender = gender
+                    custom_user.dob = dob
+                    custom_user.mobile = mobile
+                    custom_user.company = company
+                    custom_user.ref_number = ref_number
+                    custom_user.aadhar = aadhar
+                    custom_user.ref_status = "0"
+                    custom_user.fcm_id = fcm_id
 
-                custom_user.save()
-                return render(request, 'website/index.html', {'custom_notifications': 'Profile has been updated!'})
+                    new_device = FCMDevice()
+                    new_device.registration_id = fcm_id
+                    new_device.type = "web"
+                    new_device.user_id = request.user.id
+                    new_device.save()
 
-        form = UpdateProfileForm()
-        return render(request, 'website/update_profile.html', {"form": form})
+                    custom_user.save()
+                    if ref_number:
+                        for user in CustomUser.objects.all():
+                            if user.mobile:
+                                if user.mobile == ref_number and user.mobile != mobile:
+                                    if user.fcm_id:
+                                        device = FCMDevice.objects.get(user_id=user.user_id)
+                                        device.send_message("Title", "You have a new Referral, Please check and confirm.")
+                                        break
+                    return render(request, 'website/index.html', {'custom_notifications': 'Profile has been updated!'})
+
+            form = UpdateProfileForm()
+            return render(request, 'website/update_profile.html', {"form": form})
+        else:
+            return render(request, 'website/index.html', {'custom_notifications': 'Profile has already been updated'})
     else:
         return render(request, 'website/index.html', {"custom_notifications": ""})
 
