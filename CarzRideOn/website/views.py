@@ -8,13 +8,28 @@ from .forms import RidesForm, UpdateProfileForm, SearchRideForm, RequestRideForm
 from fcm_django.models import FCMDevice
 
 
+def get_user_from_request(selected_request):
+    users = User.objects.all()
+    for user in users:
+        if user.socialaccount_set.all().exists():
+            if user.socialaccount_set.all()[0].uid == selected_request.fb_id:
+                return user
+    return None
+
+def get_custom_user_from_fb_id(fb_id):
+    custom_users = CustomUser.objects.all()
+    for user in custom_users:
+        if user.fb_id == fb_id:
+            return user
+
 def index(request):
     return render(request, 'website/index.html', {"custom_notifications": ""})
 
 
 def offer_ride(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             if request.method == 'POST':
                 form = RidesForm(request.POST)
                 if form.is_valid():
@@ -58,26 +73,31 @@ def offer_ride(request):
         form = RidesForm()
         return render(request, 'website/offerride.html', {"form": form})
     else:
-        return render(request, 'website/index.html', {"custom_notifications": ""})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def view_profile(request):
     if request.user.is_authenticated():
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             time = datetime.datetime.now().time()
             return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
         time = datetime.datetime.now().time()
         return render(request, 'website/profile.html', {"update_profile": "False", "current_time": time})
-    return render(request, 'website/index.html', {"custom_notifications": ""})
+    return render(request, 'website/index.html', {
+        "custom_notifications": "Not Logged In :("
+    })
 
 
 def update_profile(request):
     if request.user.is_authenticated:
-        if not request.user.customuser_set.all()[0].mobile and not request.user.customuser_set.all()[0].fcm_id:
+        custom_user = get_custom_user_from_fb_id(request.user.socialaccount_set.all()[0].uid)
+        if not custom_user.mobile and not custom_user.aadhar:
             if request.method == 'POST':
                 form = UpdateProfileForm(request.POST)
                 if form.is_valid():
-                    custom_user = CustomUser.objects.get(user_id=request.user.id)
+                    custom_user = CustomUser.objects.get(fb_id=request.user.socialaccount_set.all()[0].uid)
                     gender = form.cleaned_data['gender']
                     dob = form.cleaned_data['dob']
                     mobile = form.cleaned_data['mobile']
@@ -102,6 +122,7 @@ def update_profile(request):
                     new_device.registration_id = fcm_id
                     new_device.type = "web"
                     new_device.user_id = request.user.id
+                    new_device.name = request.user.socialaccount_set.all()[0].uid
                     new_device.save()
 
                     custom_user.save()
@@ -110,7 +131,7 @@ def update_profile(request):
                             if user.mobile:
                                 if user.mobile == ref_number and user.mobile != mobile:
                                     if user.fcm_id:
-                                        device = FCMDevice.objects.get(user_id=user.user_id)
+                                        device = FCMDevice.objects.get(name=custom_user.fb_id)
                                         device.send_message("Title", "You have a new Referral, Please check and confirm.")
                                         break
                     return render(request, 'website/index.html', {'custom_notifications': 'Profile has been updated!'})
@@ -120,12 +141,13 @@ def update_profile(request):
         else:
             return render(request, 'website/index.html', {'custom_notifications': 'Profile has already been updated'})
     else:
-        return render(request, 'website/index.html', {"custom_notifications": ""})
+        return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
 def take_ride(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             if request.method == 'POST':
                 form = SearchRideForm(request.POST)
                 if form.is_valid():
@@ -165,7 +187,9 @@ def take_ride(request):
 
 def request_ride(request, ride_id):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             if request.method == 'POST':
                 form = RequestRideForm(request.POST)
                 if form.is_valid():
@@ -198,7 +222,9 @@ def request_ride(request, ride_id):
 
 def view_requests(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             all_rides = Rides.objects.filter(fb_id=request.user.socialaccount_set.all()[0].uid)
             all_rides_id = []
             for ride in all_rides:
@@ -218,28 +244,21 @@ def view_requests(request):
         return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
 
 
-def get_user_from_request(selected_request):
-    users = User.objects.all()
-    for user in users:
-        if user.socialaccount_set.all().exists():
-            if user.socialaccount_set.all()[0].uid == selected_request.fb_id:
-                return user.socialaccount_set.all()[0].extra_data['email']
-    return None
-
-
 def validate_ride_request(request, request_id):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             if request.method == 'POST':
                 form = ValidateRequestForm(request.POST)
                 if form.is_valid():
                     ride_request = UserRides.objects.get(pk=request_id)
                     ride_request.status = form.cleaned_data['validation'][0]
                     if ride_request.status == "2":
-                        user_email = get_user_from_request(ride_request)
-                        # devices = FCMDevice.objects.get(registration_id=request.user.customuser_set)
-                        # devices.send_message("Happy name day!")
-                        print("Sent to " + user_email)
+                        user = get_user_from_request(ride_request)
+                        devices = FCMDevice.objects.get(name=user.socialaccount_set.all()[0].uid)
+                        devices.send_message(
+                            "Title", "Your Ride Request Has Been Approved!")
                     ride_request.save()
                     return view_requests(request)
 
@@ -261,7 +280,9 @@ def validate_ride_request(request, request_id):
 
 def contact_us(request):
     if request.user.is_authenticated:
-        if request.user.customuser_set.all()[0].mobile and request.user.customuser_set.all()[0].aadhar:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
             if request.method == 'POST':
                 form = ContactForm(request.POST)
                 if form.is_valid():
@@ -274,8 +295,6 @@ def contact_us(request):
 
                     return render(request, 'website/index.html', {"custom_notifications": "Message has been sent!"})
             form = ContactForm()
-            for i in form:
-                print(i.name)
             return render(request, 'website/contact_us.html', {'form': form})
         else:
             return update_profile(request)

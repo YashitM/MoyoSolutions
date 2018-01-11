@@ -57,7 +57,6 @@ class UserRides(models.Model):
 
 # Create your models here.
 class CustomUser(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     sno = models.AutoField(primary_key=True)
     fb_id = models.CharField(max_length=100, blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
