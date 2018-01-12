@@ -49,7 +49,7 @@ def offer_ride(request):
                     lon_des = form.cleaned_data['des_long']
 
                     ride.car_model = car_model
-                    ride.fb_id = request.user.customuser_set.all()[0].fb_id
+                    ride.fb_id = request.user.socialaccount_set.all()[0].uid
                     ride.seats = seats
                     ride.seats_available = seats_available
                     ride.cost = cost
@@ -78,13 +78,25 @@ def offer_ride(request):
 
 def view_profile(request):
     if request.user.is_authenticated():
-        custom_user = get_custom_user_from_fb_id(
-            request.user.socialaccount_set.all()[0].uid)
+        custom_user = get_custom_user_from_fb_id(request.user.socialaccount_set.all()[0].uid)
+        rides = Rides.objects.filter(
+            fb_id=request.user.socialaccount_set.all()[0].uid)
+        num_rides = len(rides)
+        ref_number = custom_user.ref_status
         if custom_user.mobile and custom_user.aadhar:
             time = datetime.datetime.now().time()
-            return render(request, 'website/profile.html', {"update_profile": "True", "current_time": time})
+            return render(
+                request, 'website/profile.html', {
+                    "update_profile": "True",
+                    "current_time": time,
+                    "num_rides": num_rides,
+                    "ref_status": ref_number
+                })
         time = datetime.datetime.now().time()
-        return render(request, 'website/profile.html', {"update_profile": "False", "current_time": time})
+        return render(request, 'website/profile.html', {
+            "update_profile": "False",
+            "current_time": time
+        })
     return render(request, 'website/index.html', {
         "custom_notifications": "Not Logged In :("
     })
@@ -92,12 +104,14 @@ def view_profile(request):
 
 def update_profile(request):
     if request.user.is_authenticated:
-        custom_user = get_custom_user_from_fb_id(request.user.socialaccount_set.all()[0].uid)
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
         if not custom_user.mobile and not custom_user.aadhar:
             if request.method == 'POST':
                 form = UpdateProfileForm(request.POST)
                 if form.is_valid():
-                    custom_user = CustomUser.objects.get(fb_id=request.user.socialaccount_set.all()[0].uid)
+                    custom_user = CustomUser.objects.get(
+                        fb_id=request.user.socialaccount_set.all()[0].uid)
                     gender = form.cleaned_data['gender']
                     dob = form.cleaned_data['dob']
                     mobile = form.cleaned_data['mobile']
@@ -158,7 +172,7 @@ def take_ride(request):
                     lon_sou = form.cleaned_data['sou_long']
                     lon_des = form.cleaned_data['des_long']
 
-                    user_id = request.user.customuser_set.all()[0].fb_id
+                    user_id = request.user.socialaccount_set.all()[0].uid
                     available_rides = Rides.objects.exclude(
                         fb_id=user_id
                     )
@@ -287,7 +301,7 @@ def contact_us(request):
                 form = ContactForm(request.POST)
                 if form.is_valid():
                     contact = form.save(commit=False)
-                    contact.fb_id = request.user.customuser_set.all()[0].fb_id
+                    contact.fb_id = request.user.socialaccount_set.all()[0].uid
                     contact.type = form.cleaned_data['type']
                     contact.message = form.cleaned_data['message']
                     contact.attachment_url = form.cleaned_data['image_url']
@@ -300,3 +314,107 @@ def contact_us(request):
             return update_profile(request)
     else:
         return render(request, 'website/index.html', {"custom_notifications": "Not Logged In :("})
+
+
+def view_user_rides(request):
+    if request.user.is_authenticated:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        if custom_user.mobile and custom_user.aadhar:
+            rides = Rides.objects.filter(fb_id=request.user.socialaccount_set.all()[0].uid)
+            if len(rides) != 0:
+                return render(request, 'website/view_rides.html', {'all_rides': rides})
+            else:
+                return render(request, 'website/index.html', {'custom_notifications': 'No Rides Found'})
+        else:
+            return update_profile(request)
+    else:
+        return render(request, 'website/index.html', {
+            "custom_notifications": "Not Logged In :("
+        })
+
+
+def cancel_ride(request, ride_id):
+    if request.user.is_authenticated:
+        current_user = request.user
+        selected_ride = Rides.objects.get(pk=ride_id)
+        if current_user.socialaccount_set.all()[0].uid == selected_ride.fb_id:
+            selected_ride.delete()
+            if len(Rides.objects.filter(fb_id=current_user.socialaccount_set.all()[0].uid)) != 0:
+                return render(request, 'website/view_rides.html', {
+                    'custom_notificaions': 'Ride Deleted'
+                })
+            else:
+                return render(request, 'website/index.html', {
+                    'custom_notificaions': 'Ride Deleted'
+                })
+        else:
+            return render(request, 'website/index.html', {
+                'custom_notificaions': "Ride Doesn't exist"
+            })
+    else:
+        return render(request, 'website/index.html', {
+            'custom_notificaions': 'Not Logged In :('
+        })
+
+
+def edit_rides(request, ride_id):
+    if request.user.is_authenticated:
+        custom_user = get_custom_user_from_fb_id(
+            request.user.socialaccount_set.all()[0].uid)
+        selected_ride = Rides.objects.get(pk=ride_id)
+        if custom_user.mobile and custom_user.aadhar:
+            if request.user.socialaccount_set.all()[
+                    0].uid == selected_ride.fb_id:
+                form = RidesForm(request.POST or None, instance=selected_ride)
+                if request.method == 'POST' and form.is_valid():
+                    car_model = form.cleaned_data['car_model']
+                    seats = form.cleaned_data['seats']
+                    seats_available = form.cleaned_data['seats_available']
+                    cost = form.cleaned_data['cost']
+                    start_time = form.cleaned_data['start_time']
+                    message = form.cleaned_data['message']
+                    dateofride = form.cleaned_data['dateofride']
+                    source_location = form.cleaned_data['source_location']
+                    destination_location = form.cleaned_data[
+                        'destination_location']
+                    lat_sou = form.cleaned_data['sou_lati']
+                    lat_des = form.cleaned_data['des_lati']
+                    lon_sou = form.cleaned_data['sou_long']
+                    lon_des = form.cleaned_data['des_long']
+
+                    selected_ride.car_model = car_model
+                    selected_ride.fb_id = request.user.socialaccount_set.all()[
+                        0].uid
+                    selected_ride.seats = seats
+                    selected_ride.seats_available = seats_available
+                    selected_ride.cost = cost
+                    selected_ride.start_time = start_time
+                    selected_ride.message = message
+                    selected_ride.ridecancelstatus = 0
+                    selected_ride.created_at = datetime.datetime.now()
+                    selected_ride.dateofride = dateofride
+                    selected_ride.source = source_location
+                    selected_ride.destination = destination_location
+                    selected_ride.destination_latitude = lat_des
+                    selected_ride.destination_longitude = lon_des
+                    selected_ride.source_latitude = lat_sou
+                    selected_ride.source_longitude = lon_sou
+
+                    selected_ride.save()
+                    return render(
+                        request, 'website/index.html', {
+                            "custom_notifications": "Ride has been edited!"
+                        })
+                return render(request, 'website/edit_ride.html', {
+                    'form': form,
+                    'selected_ride': selected_ride
+                })
+            else:
+                return render(request, 'website/index.html', {
+                    'custom_notificaions': "Ride Doesn't exist"
+                })
+        else:
+            return update_profile(request)
+    else:
+        return render(request_ride, 'website/index.html', {'custom_notifications': 'Not Logged In :('})
